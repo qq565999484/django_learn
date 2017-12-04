@@ -1,17 +1,11 @@
-<html>
-    <head>
-        <title>Django Girls Blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/blog/">Django Girls Blog</a></h1>
-        </div>
-        {% for post in posts %}
-        <div>
-            <p>published: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaks }}</p>
-        </div>
-        {% endfor %}
-    </body>
-    </html>
+{% extends 'base.html' %}
+{% block content %}
+{%for post in posts %}
+<!-- url这块不需要(.语法) 在urls管理中声明了name的都不需要 -->
+    <div class="post">
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>            
+        <p>published: {{ post.published_date }}</p>
+        <p>{{ post.text|linebreaks }}</p>
+    </div>
+{% endfor %}
+{% endblock content %}
