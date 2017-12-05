@@ -2,13 +2,28 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import Post
 from .forms import PostForm
 from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
-  
-    return render(request, 'post_list.html', {'posts': posts})
+    #所有已发布文章
+
+    postsAll = Post.objects.filter(published_date__isnull=False).order_by('-published_date')
+
+    # for p in postsAll:
+    #     p.click = cache_manager.get_click(p)
+    paginator = Paginator(postsAll,10) #show 10 contacts per page
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = page.page(paginator.num_pages)
+    return render(request, 'post_list.html', {'posts': posts, 'page': True})
+
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -47,3 +62,8 @@ def post_publish(request,pk):
     post = get_object_or_404(Post,pk=pk)
     post.publish()
     return redirect('post_detail',pk=pk)
+
+def post_remove(request,pk):
+    post = get_object_or_404(Post,pk=pk)
+    post.delete()
+    return redirect('post_list') 

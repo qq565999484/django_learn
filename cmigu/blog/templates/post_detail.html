@@ -9,11 +9,11 @@
         <a class = "btn btn-default" href="{% url 'post_publish' pk=post.pk %}">发布</a>
     {% endif %}
     <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
-        
-        <span class="glyphicon glyphicon-pencil">
-                {{post.pk}}
-        </span>
+        <span class="glyphicon glyphicon-pencil">{{post.pk}}</span>
     </a>
+    <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+            <span class="glyphicon glyphicon-remove">{{post.pk}}</span>
+        </a>
     </div>
     <h1>{{ post.title }}</h1>
     <p>{{ post.text|linebreaks }}</p>
