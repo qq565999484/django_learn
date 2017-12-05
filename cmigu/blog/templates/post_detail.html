@@ -5,6 +5,8 @@
     <div class="date">
     {% if post.published_date %}
         {{ post.published_date }}
+    {% else %}
+        <a class = "btn btn-default" href="{% url 'post_publish' pk=post.pk %}">发布</a>
     {% endif %}
     <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
         
