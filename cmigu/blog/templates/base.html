@@ -7,13 +7,22 @@
 <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+<link type="text/css" rel="stylesheet" href="{% static 'syntaxhighlighter/styles/shCoreDefault.css' %}"/>
+<script type="text/javascript" src="{% static 'syntaxhighlighter/scripts/shCore.js' %}"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
 </head>
 <body>
     <div class="page-header">
+            {% if user.is_authenticated %}
             <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
             <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+            <p class="top-menu">Hello {{ user.username }}<small>&nbsp;<a href="{% url 'logout' %}">Log out</a></p>
+            {% else %}
+            <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock">登录</span></a>
+            {% endif %}
             <h1><a href="{% url 'post_list' %}">Django Girls Blog</a></h1>
-        
     </div>
     <div class="content">
         <div class="row">
@@ -23,5 +32,16 @@
             </div>
         </div>
     </div>
+
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushJScript.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushBash.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushPhp.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushJava.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushSql.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushXml.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushPython.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushCss.js' %}"></script>
+    <script class="javascript" src="{% static 'syntaxhighlighter/scripts/shBrushCpp.js' %}"></script>
+    
 </body>
 </html>

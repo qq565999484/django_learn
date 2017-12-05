@@ -26,8 +26,8 @@ SECRET_KEY = '*u2u-982%2c&j#wutvn67tkoi#n^%z60&e=+jfn=1q1@mmu)9!'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+#登录成功会重定向到文章列表页面去
+LOGIN_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'haystack',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +129,26 @@ USE_TZ = True
 # TEMPLATE_CONTEXT_PROCESSORS = (
 #     "django.core.context_processors.i18n",
 # )
+
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+MANAGERS = ADMINS
+
+# TEMPLATE_DIRS
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'cmigu/templates'),
+    os.path.join(BASE_DIR, 'blog/templates'),
+)
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+# full text search
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
